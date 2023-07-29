@@ -25,7 +25,7 @@ sd_model= "Lykon/DreamShaper" #@param {type:"string"}
 #@markdown ###### Select an Openai Model:
 engine="gpt-3.5-turbo" #@param ["gpt-4-32k-0613","gpt-4-32k","gpt-4-0613","gpt-4","gpt-3.5-turbo-16k-0613","gpt-3.5-turbo-0613","gpt-3.5-turbo-16k","gpt-3.5-turbo","text-ada-001","text-babbage-001","text-curie-001","text-davinci-002","text-davinci-003"]{type:"string"}
 #@markdown ###### Enter your OpenAi api key here:
-api_key = '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'#@param {type:"string"}
+api_key = "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"
 
 text_models=["text-ada-001","text-babbage-001","text-curie-001","text-davinci-002","text-davinci-003"]
 chat_models=["gpt-3.5-turbo-16k-0613","gpt-3.5-turbo-0613","gpt-3.5-turbo-16k","gpt-3.5-turbo"]

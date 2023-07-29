@@ -69,7 +69,7 @@ def generate_template(style,slides,content,bg_image,image_source="Unsplash",mode
         content[slide]['img']=image_to_base64(img)
       except Exception as e:
         img_prompt=content[slide]['img']
-        img=generate_sd_image(img_prompt, orientation,None,model)
+        img=generate_sd_image(img_prompt, orientation,model)
         content[slide]['img']=image_to_base64(img)
         print("Error: ",e)
     div_jinja=Template(str(selected_div))
