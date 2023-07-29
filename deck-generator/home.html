@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1D2026;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1D2026; /* Google Blue */
+            color: #fff;;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2% auto;
+            padding: 2%;
+            background-color: #1D2026;
+            box-shadow: 0 4px 8px rgba(199, 176, 176, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            color:  #fff;;
+            margin-top: 0;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            background-color: #1D2026;
+            color:#fff;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            background-color: #1D2026;
+            color:#fff;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #0F8AFD; /* Google Blue */
+            color:  #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            align-items: center;
+        }
+
+        button:hover {
+            background-color: #3367D6; /* Slightly darker shade of Google Blue */
+        }
+
+        #rendered-html {
+            margin-top: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            max-width: 400px; /* Set a maximum width for the modal */
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal-content .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4285F4; /* Google Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Steller</h1>
+    </header>
+    <div class="container">
+        <form id="presentation-form">
+            <label for="prompt">Topic</label>
+            <input type="text" id="prompt" name="prompt"><br>
+            <label for="style">Style:</label>
+            <select id="style" name="style">
+                <option value="style1">Style 1</option>
+                <option value="style2">Style 2</option>
+                <option value="style3">Style 3</option>
+            </select><br>
+
+            <label for="num_slides">Number of Slides:</label>
+            <input type="number" id="num_slides" name="num_slides" min="1" value="5"><br>
+
+            <label for="image_source">Image Source:</label>
+            <select id="image_source" name="image_source">
+                <option value="Pexel">Pexel</option>
+                <option value="Stable Diffusion">Stable Diffusion</option>
+                <option value="Unsplash">Unsplash</option>
+            </select><br>
+
+            <button type="submit">Generate Presentation</button>
+        </form>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="loadingModal">
+        <div class="modal-content">
+            <div class="loader"></div>
+            <p>Please wait while your presentation is being generated...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('presentation-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const requestData = {
+                topic: formData.get('prompt'),
+                style: formData.get('style'),
+                num_slides: formData.get('num_slides'),
+                image_source: formData.get('image_source')
+            };
+
+            const modal = document.getElementById('loadingModal');
+            modal.style.display = 'block';
+
+            try {
+                const response = await fetch('/get_html', {
+                    method: 'POST',
+                    body: JSON.stringify(requestData),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const responseData = await response.text();
+
+                // Hide the modal and create a new page to display the generated HTML content
+                modal.style.display = 'none';
+                const newWindow = window.open('', '_blank');
+                newWindow.document.write(responseData);
+            } catch (error) {
+                console.error('Error fetching HTML from API:', error.message);
+                modal.style.display = 'none'; // Hide the modal in case of an error
+            }
+        });
+    </script>
+</body>
+</html>
+    
