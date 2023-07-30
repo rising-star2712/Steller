@@ -6,7 +6,48 @@
   {{ title }}
   <style>
     {{ style }}
-  </style>
+    textarea {
+  /* Set the width and height of the textarea */
+  width: 100%;
+  height: 100px;
+
+  /* Add some padding and margin for spacing */
+  padding: 8px;
+  margin: 8px 0;
+
+  /* Add a border and border-radius for a simple outline */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  background-color: #ccc;
+  /* Add a box-shadow for a subtle visual effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Set the font family and font size */
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+
+  /* Set the background color to white */
+
+
+  /* Add a resize property to allow the user to resize the textarea */
+  resize: vertical;
+
+  /* Add a transition for a smooth appearance when the textarea becomes editable */
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Add a hover effect to the textarea */
+textarea:hover {
+  border-color: #999;
+}
+
+/* Add a focus effect to the textarea */
+textarea:focus {
+  border-color: #007bff;
+  outline: none; /* Remove the default focus outline */
+}
+</style>
 </head>
 <body style="margin:0;">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -26,7 +67,70 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+  
+  <script>
+    // Function to make an element editable
+    function makeEditable(element) {
+      // Get the current text of the element
+      const text = element.innerText;
 
+      // Create a new textarea and set its initial value to the current text
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+
+      // Replace the element with the textarea
+      element.replaceWith(textarea);
+
+      // Focus on the textarea so the user can start editing immediately
+      textarea.focus();
+
+      // Add an event listener to the textarea to update the element in real-time
+      textarea.addEventListener("input", function () {
+        element.innerText = textarea.value;
+      });
+
+      // Add an event listener to the textarea to revert to the original element when the user presses Enter
+      textarea.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          element.innerText = textarea.value;
+          textarea.replaceWith(element);
+        }
+      });
+    }
+
+    // Get the title and subtitle elements
+    const titleElement = document.getElementById("title");
+    const subtitleElement = document.getElementById("subtitle");
+    const headingElement = document.getElementById("heading");
+    const bulletElements = document.querySelectorAll(".bullet");
+    const subheadingElements = document.querySelectorAll(".subheading");
+  
+    // Add click event listeners to make the title and subtitle editable
+    titleElement.addEventListener("click", function () {
+      makeEditable(titleElement);
+    });
+
+    subtitleElement.addEventListener("click", function () {
+      makeEditable(subtitleElement);
+    });
+
+    headingElement.addEventListener("click", function () {
+      makeEditable(headingElement);
+    });
+
+    bulletElements.forEach((bulletElement) => {
+      bulletElement.addEventListener("click", function () {
+        makeEditable(bulletElement);
+      });
+    });
+
+    subheadingElements.forEach((subheadingElement) => {
+      subheadingElement.addEventListener("click", function () {
+        makeEditable(subheadingElement);
+      });
+    });
+  </script>
   <!-- Include Bootstrap JS at the bottom of the body -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
