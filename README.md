@@ -26,5 +26,5 @@ we need to seperately install the requirements or libraries using the command
 
 You need to specify your own Open AI Key in the file hmtl_gen.py file in variable OPEN_API_KEY
 
-Once all libraries are installed according to the process try running 
+Once all libraries are installed according to the process try running app.py file which uses Flask 
 ```python app.py```
