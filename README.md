@@ -28,9 +28,3 @@ You need to specify your own Open AI Key in the file hmtl_gen.py file in variabl
 
 Once all libraries are installed according to the process try running 
 ```python app.py```
-
-If it throws errors on certain modules then we can install the specific modules using the same pip install command
-
-And if the error persists with a few functions you can do
-```pip unistall```
-then install the package again 
