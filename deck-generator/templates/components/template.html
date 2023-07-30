@@ -6,6 +6,16 @@
   {{ title }}
   <style>
     {{ style }}
+    body{
+      background-color: #1D2026;
+      color: #fff;
+    }
+    header {
+            background-color: #1D2026; /* Google Blue */
+            color: #fff;;
+            padding: 20px;
+            text-align: center;
+        }
     textarea {
   /* Set the width and height of the textarea */
   width: 100%;
@@ -47,10 +57,60 @@ textarea:focus {
   border-color: #007bff;
   outline: none; /* Remove the default focus outline */
 }
+/* Add CSS to control the size and position of the carousel */
+.carousel-container {
+  max-width: 60%; /* Set the maximum width of the carousel container */
+  margin: 0 auto;   /* Center the carousel container */
+  display: flex;    /* Use flexbox to arrange items horizontally */
+  position: relative; /* Add this to set the position context for the carousel-content */
+}
+
+.slide-numbers {
+  display: flex;    /* Use flexbox to arrange slide numbers vertically */
+  flex-direction: column; /* Arrange slide numbers in a column */
+  justify-content: center; /* Vertically center slide numbers */
+  width: 2%; /* Set a fixed width for the slide numbers */
+  background-color: rgb(237, 114, 114); /* Optional: add a background color to the slide numbers area */
+  color: #fff;
+}
+
+.slide-number {
+  padding: 5px;
+  cursor: pointer;
+  color:#fff
+}
+
+.carousel-content {
+  flex: 1; /* This makes the carousel content take up the remaining space */
+  display: flex;
+  justify-content: flex-end; /* Align the carousel to the right */
+  padding-right: 3%; /* Optional: add some padding to separate the carousel from the edge */
+  position: fixed; /* Set the carousel to be fixed on the screen */
+  top: 50%; /* Adjust the vertical position of the carousel */
+  transform: translateY(-50%); /* Center the carousel vertically */
+}
+
+.carousel-inner img {
+  max-width: 100%; /* Make sure the images inside the carousel fit within the container */
+  height: auto;    /* Preserve the aspect ratio of the images */
+}
+
 </style>
 </head>
 <body style="margin:0;">
-  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <header>
+    <h1>Steller</h1>
+</header>
+<div class="slide-numbers">
+  {% for c in components %}
+    <div class="slide-number" data-bs-target="#carouselExampleControls" data-bs-slide-to="{{ loop.index0 }}">
+      {{ loop.index }}
+    </div>
+  {% endfor %}
+</div>
+<div class="carousel-container">
+  <div class="carousel-content">
+  <div id="carouselExampleControls" class="carousel slide">
     <div class="carousel-inner">
       {% for c in components %}
       <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
@@ -67,6 +127,10 @@ textarea:focus {
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+  </div>
+  </div>
+  
+
   
   <script>
     // Function to make an element editable

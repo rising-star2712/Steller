@@ -2,9 +2,11 @@
 <html>
 <head>
     <title>Steller</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Poppins">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Roboto", sans-serif;
             background-color: #1D2026;
             margin: 0;
             padding: 0;
@@ -13,41 +15,47 @@
         header {
             background-color: #1D2026; /* Google Blue */
             color: #fff;;
-            padding: 20px;
+            padding: 4%;
             text-align: center;
+            font-size: large;
+            font-family:'Poppins', serif;
+            text-shadow: 4px 4px 4px #aaa;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 40%;
             margin: 2% auto;
-            padding: 2%;
+            padding: 3%;
             background-color: #1D2026;
             box-shadow: 0 4px 8px rgba(199, 176, 176, 0.1);
-            border-radius: 5px;
+            border-radius: 2%
         }
 
         h1 {
             color:  #fff;;
             margin-top: 0;
+            font-family: "Roboto", sans-serif;
         }
 
         label {
             font-weight: bold;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: large;
         }
 
         input[type="text"], input[type="number"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid #fff;
             background-color: #1D2026;
             color:#fff;
             border-radius: 3px;
-            font-size: 16px;
+            font-size: large;
+            font-family: "Roboto", sans-serif;
         }
 
         select {
@@ -62,16 +70,17 @@
         }
 
         button {
-            background-color: #0F8AFD; /* Google Blue */
-            color:  #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            align-items: center;
-        }
+        background-color: #0F8AFD; /* Google Blue */
+        color:  #fff;
+        padding: 3%; /* Increased padding for better visual appearance */
+        border: none;
+        border-radius: 30px; /* Rounded corners */
+        cursor: pointer;
+        font-size: large; /* Slightly increased font size */
+        transition: background-color 0.3s;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(162, 154, 154, 0.1); /* Add a subtle shadow */
+    }
 
         button:hover {
             background-color: #3367D6; /* Slightly darker shade of Google Blue */
@@ -123,11 +132,19 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .button-container {
+        display: flex;
+        justify-content: center;
+    }
+    .loader-container {
+        display: flex;
+        justify-content: center;
+    }
     </style>
 </head>
 <body>
     <header>
-        <h1>Steller</h1>
+        <h1>STELLER</h1>
     </header>
     <div class="container">
         <form id="presentation-form">
@@ -135,9 +152,9 @@
             <input type="text" id="prompt" name="prompt"><br>
             <label for="style">Style:</label>
             <select id="style" name="style">
-                <option value="style1">Style 1</option>
-                <option value="style2">Style 2</option>
-                <option value="style3">Style 3</option>
+                <option value="style1">Purple Theme</option>
+                <option value="style2">Green Theme</option>
+                <option value="style3">Green Theme</option>
             </select><br>
 
             <label for="num_slides">Number of Slides:</label>
@@ -149,15 +166,18 @@
                 <option value="Stable Diffusion">Stable Diffusion</option>
                 <option value="Unsplash">Unsplash</option>
             </select><br>
-
+            <div class="button-container">
             <button type="submit">Generate Presentation</button>
+            </div>
         </form>
     </div>
     
     <!-- Modal -->
     <div class="modal" id="loadingModal">
         <div class="modal-content">
+            <div class="loader-container">
             <div class="loader"></div>
+            </div>
             <p>Please wait while your presentation is being generated...</p>
         </div>
     </div>
